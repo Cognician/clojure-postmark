@@ -40,17 +40,18 @@
   "Send an email with the Postmark API.
 
   Remember: Postmark only lets you send to at most twenty addresses at once."
-  [api-key from {:keys [to subject cc bcc tag text html reply-to]}]
+  [api-key from {:keys [to subject cc bcc tag text html reply-to name]}]
   {:pre [(no-more-than-20-recipients to)]}
-  (send-to-postmark api-key {"From" from
-                             "To" (get-to-string to)
-                             "Subject" subject
-                             "Cc" (get-to-string cc)
-                             "Bcc" (get-to-string bcc)
-                             "Tag" tag
-                             "TextBody" text
-                             "HtmlBody" html
-                             "ReplyTo" reply-to}))
+  (let [full-from (if name (str name " <" from ">") from)]
+    (send-to-postmark api-key {"From" full-from
+                               "To" (get-to-string to)
+                               "Subject" subject
+                               "Cc" (get-to-string cc)
+                               "Bcc" (get-to-string bcc)
+                               "Tag" tag
+                               "TextBody" text
+                               "HtmlBody" html
+                               "ReplyTo" reply-to})))
 
 
 (defn postmark [api-key from]
