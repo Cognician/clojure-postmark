@@ -1,4 +1,4 @@
-(defproject phronmophobic/postmark "1.3.0"
+(defproject phronmophobic/postmark "1.3.0-SNAPSHOT"
   :description "Clojure bindings for http://postmarkapp.com/"
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [cheshire "5.3.1"]
